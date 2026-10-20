@@ -1,0 +1,26 @@
+# local Python / Blender runtime
+.venv/
+__pycache__/
+*.py[cod]
+*.blend1
+*.blend2
+
+# local tooling / test artifacts
+node_modules/
+package.json
+package-lock.json
+.edge-*/
+*.log
+viewer/preview*.png
+viewer/capture.mjs
+viewer/check.mjs
+renders/test_*.png
+renders/diag_*.png
+renders/wh_*.png
+renders/warehouse_*.png
+renders/scan_sphinx_scene*.png
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

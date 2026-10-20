@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0a08">
+  <title>吉萨金字塔群 · 3D 交互模型</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230b0a08'/%3E%3Cpath d='M32 10 58 54H6Z' fill='%23d9b46d'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three.module.js",
+        "three/addons/": "./vendor/addons/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <div id="stage" aria-label="吉萨金字塔群三维场景"></div>
+    <div id="vignette"></div>
+    <div id="hotspots" aria-live="polite"></div>
+
+    <header id="brand">
+      <div class="eyebrow">GIZA PLATEAU <span>·</span> 3D ATLAS</div>
+      <h1>吉萨金字塔群</h1>
+      <p>KHUFU · KHAFRE · MENKAURE · SPHINX</p>
+    </header>
+
+    <aside id="panel">
+      <button id="panelToggle" class="panel-toggle" aria-label="收起面板">−</button>
+
+      <section class="panel-section explode-section">
+        <div class="section-head">
+          <span class="section-kicker">EXPLODED VIEW</span>
+          <span id="explodeValue" class="value">0%</span>
+        </div>
+        <label class="range-label" for="explode">模型分解 <small>沿垂直轴分离地形与建筑</small></label>
+        <input id="explode" type="range" min="0" max="100" value="0" step="1" aria-label="模型分解程度">
+        <div class="range-ticks"><span>原貌</span><span>分层</span><span>分解</span></div>
+      </section>
+
+      <section class="panel-section">
+        <div class="section-head"><span class="section-kicker">CAMERA</span></div>
+        <div class="segmented" role="group" aria-label="相机预设">
+          <button data-view="hero" class="active">主视</button>
+          <button data-view="aerial">鸟瞰</button>
+          <button data-view="sphinx">狮身</button>
+          <button data-view="plan">平面</button>
+        </div>
+      </section>
+
+      <section class="panel-section">
+        <div class="section-head"><span class="section-kicker">DISPLAY</span></div>
+        <div class="toggles">
+          <button data-action="orbit" class="toggle"><span class="ico">↻</span>自动旋转</button>
+          <button data-action="labels" class="toggle active"><span class="ico">◎</span>标签</button>
+          <button data-action="wire" class="toggle"><span class="ico">▦</span>线框</button>
+          <button data-action="light" class="toggle"><span class="ico">☀</span>日间</button>
+        </div>
+      </section>
+
+      <section id="info" class="panel-section info-section">
+        <div class="section-head">
+          <span class="section-kicker">SELECTED MONUMENT</span>
+          <span id="infoIndex" class="value">01</span>
+        </div>
+        <h2 id="infoName">胡夫金字塔</h2>
+        <div id="infoEn" class="info-en">PYRAMID OF KHUFU / CHEOPS</div>
+        <div id="infoDims" class="dims">230.33 × 230.33 m · 原高 146.6 m · 现高 138.5 m</div>
+        <p id="infoText">吉萨三大金字塔中最大、最古老的一座，约建于公元前 2560 年。内部保留国王室、王后室与大走廊；外部白色图拉石灰岩外壳几乎全部被剥离，形成今日所见的阶梯状石砌体与平顶。</p>
+        <button id="focusSelected" class="focus-btn">聚焦此建筑 <span>→</span></button>
+      </section>
+
+      <footer class="panel-footer">
+        <span>拖拽旋转 · 滚轮缩放 · 右键平移</span>
+        <span id="fps" class="fps">—</span>
+      </footer>
+    </aside>
+
+    <div id="compass" aria-hidden="true">
+      <div class="compass-ring"><span class="north">N</span><div id="compassNeedle" class="needle"></div></div>
+    </div>
+
+    <div id="loading">
+      <div class="loader-inner">
+        <div class="loader-eyebrow">GIZA PLATEAU</div>
+        <div class="loader-title">正在载入三维模型</div>
+        <div class="loader-bar"><div id="loaderFill"></div></div>
+        <div id="loaderPct" class="loader-pct">0%</div>
+        <div class="loader-note">27 MB · glTF 2.0 · 程序化贴图</div>
+      </div>
+    </div>
+
+    <noscript><div class="noscript">需要启用 JavaScript 才能查看三维模型。</div></noscript>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
